@@ -1,0 +1,6 @@
+src
+tsconfig.json
+tsup.config.ts
+*.md
+!README.md
+!REACT_NATIVE.md
