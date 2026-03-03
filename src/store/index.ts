@@ -23,6 +23,7 @@ interface KYCState {
   setBVN: (bvn: string) => void;
   setSelfieUrl: (url: string) => void;
   setDocumentUrls: (front: string, back?: string) => void;
+  setDocumentType: (type: string) => void;
   setDocumentNumber: (number: string) => void;
   reset: () => void;
 }
@@ -49,6 +50,7 @@ export const useKYCStore = create<KYCState>((set) => ({
   setBVN: (bvn) => set({ bvn }),
   setSelfieUrl: (url) => set({ selfieUrl: url }),
   setDocumentUrls: (front, back) => set({ documentFrontUrl: front, documentBackUrl: back || '' }),
+  setDocumentType: (type) => set({ documentType: type }),
   setDocumentNumber: (number) => set({ documentNumber: number }),
   reset: () => set({
     currentStep: 0,

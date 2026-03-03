@@ -15,7 +15,7 @@ export const DocumentUpload: React.FC<DocumentUploadProps> = ({ onUpload }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string>("");
   const [backPreview, setBackPreview] = useState<string>("");
-  const [documentType, setDocumentType] = useState<string>("");
+  const [documentType, setLocalDocumentType] = useState<string>("");
   const [documentNumber, setLocalDocumentNumber] = useState<string>("");
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -24,7 +24,7 @@ export const DocumentUpload: React.FC<DocumentUploadProps> = ({ onUpload }) => {
   );
   const fileInputRef = useRef<HTMLInputElement>(null);
   const backFileInputRef = useRef<HTMLInputElement>(null);
-  const { setDocumentUrls, setDocumentNumber } = useKYCStore();
+  const { setDocumentUrls, setDocumentType, setDocumentNumber } = useKYCStore();
 
   const requiresBackImage = documentType !== "passport";
 
@@ -71,6 +71,7 @@ export const DocumentUpload: React.FC<DocumentUploadProps> = ({ onUpload }) => {
   const handleContinue = () => {
     if (preview && (!requiresBackImage || backPreview) && documentNumber.trim()) {
       setDocumentUrls(preview, backPreview);
+      setDocumentType(documentType);
       setDocumentNumber(documentNumber);
       onUpload(preview, documentType);
     }
@@ -87,7 +88,7 @@ export const DocumentUpload: React.FC<DocumentUploadProps> = ({ onUpload }) => {
         <FloatingLabelSelect
           label="Document Type"
           value={documentType}
-          onChange={setDocumentType}
+          onChange={setLocalDocumentType}
           options={documentOptions}
         />
 

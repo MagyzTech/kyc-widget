@@ -1,6 +1,6 @@
 {
   "name": "kyc-widget-falconlite",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Universal KYC verification widget for Next.js and React Native",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
