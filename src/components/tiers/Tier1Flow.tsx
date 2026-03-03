@@ -77,13 +77,6 @@ export const Tier1Flow: React.FC<Tier1FlowProps> = ({
       setVerifying(true);
       setError(null);
 
-      console.log('[API] Starting combined verification with payload:', {
-        bvn,
-        selfie_image: selfieUrl ? 'present' : 'missing',
-        documentFrontUrl: documentFrontUrl ? 'present' : 'missing',
-        documentBackUrl: documentBackUrl ? 'present' : 'missing'
-      });
-
       // Combined BVN + Document verification (atomic transaction)
       try {
         // Strip data URL prefix
@@ -105,7 +98,6 @@ export const Tier1Flow: React.FC<Tier1FlowProps> = ({
           expiry_date: '2030-01-01',
         });
         
-        console.log('[API] Combined verification successful:', result);
         setVerificationResult(result);
         setStep(3);
         

@@ -24,8 +24,15 @@ export const DocumentSelector: React.FC<DocumentSelectorProps> = ({
   const [frontUrl, setFrontUrl] = useState('');
   const [backUrl, setBackUrl] = useState('');
   const [uploading, setUploading] = useState(false);
+  const [brokenImages, setBrokenImages] = useState<Set<string>>(new Set());
+
+  const handleImageError = (docId: string) => {
+    setBrokenImages(prev => new Set(prev).add(docId));
+  };
 
   const handleExistingDocSelect = (docId: string) => {
+    if (brokenImages.has(docId)) return;
+    
     const doc = existingDocs.find(d => d.id === docId);
     if (doc) {
       setSelectedDocId(docId);
@@ -87,26 +94,41 @@ export const DocumentSelector: React.FC<DocumentSelectorProps> = ({
         <div className="space-y-3">
           <h3 className="text-sm font-semibold text-gray-900">Select existing document</h3>
           <div className="grid grid-cols-2 gap-3">
-            {existingDocs.map(doc => (
-              <div
-                key={doc.id}
-                onClick={() => handleExistingDocSelect(doc.id)}
-                className={`relative p-3 rounded-lg cursor-pointer transition-all ${
-                  selectedDocId === doc.id ? 'bg-blue-50 ring-2 ring-blue-500' : 'bg-gray-50 hover:bg-gray-100'
-                }`}
-              >
-                {selectedDocId === doc.id && (
-                  <div className="absolute top-2 right-2 w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
-                    <Check className="w-3 h-3 text-white" />
+            {existingDocs.map(doc => {
+              const isBroken = brokenImages.has(doc.id);
+              return (
+                <div
+                  key={doc.id}
+                  onClick={() => !isBroken && handleExistingDocSelect(doc.id)}
+                  className={`relative p-3 rounded-lg transition-all ${
+                    isBroken 
+                      ? 'bg-gray-100 opacity-50 cursor-not-allowed' 
+                      : selectedDocId === doc.id 
+                        ? 'bg-blue-50 ring-2 ring-blue-500 cursor-pointer' 
+                        : 'bg-gray-50 hover:bg-gray-100 cursor-pointer'
+                  }`}
+                >
+                  {selectedDocId === doc.id && !isBroken && (
+                    <div className="absolute top-2 right-2 w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                  )}
+                  <div className="w-full h-20 bg-white rounded mb-2 overflow-hidden">
+                    <img 
+                      src={doc.url} 
+                      alt={doc.type} 
+                      className="w-full h-full object-cover"
+                      onError={() => handleImageError(doc.id)}
+                    />
                   </div>
-                )}
-                <div className="w-full h-20 bg-white rounded mb-2 overflow-hidden">
-                  <img src={doc.url} alt={doc.type} className="w-full h-full object-cover" />
+                  <p className="text-xs font-medium capitalize">{doc.type.replace('_', ' ')}</p>
+                  <p className="text-xs text-gray-500">{doc.number}</p>
+                  {isBroken && (
+                    <p className="text-xs text-red-600 mt-1">Unavailable</p>
+                  )}
                 </div>
-                <p className="text-xs font-medium capitalize">{doc.type.replace('_', ' ')}</p>
-                <p className="text-xs text-gray-500">{doc.number}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
           <div className="text-center text-sm text-gray-500">or upload new</div>
         </div>

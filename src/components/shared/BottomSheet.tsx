@@ -32,11 +32,12 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
 
           {/* Bottom Sheet */}
           <motion.div
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100%" }}
+            initial={{ y: "100%", x: "-50%" }}
+            animate={{ y: 0, x: "-50%" }}
+            exit={{ y: "100%", x: "-50%" }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl z-50 max-w-6xl lg:max-h-[560px] max-h-[90vh] overflow-hidden"
+            style={{ left: "50%" }}
+            className="fixed bottom-0 w-full max-w-md bg-white rounded-t-2xl z-50 lg:max-h-[560px] max-h-[90vh] overflow-hidden"
           >
             {/* Header */}
             <div className="flex items-center justify-end pt-4 px-4">

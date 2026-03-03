@@ -63,8 +63,16 @@ export const KYCWidget: React.FC<KYCWidgetProps> = ({
       const kycStatus = await apiClient.getKYCStatus();
       setStatus(kycStatus);
 
-      if (tier === "tier_1" && kycStatus.current_level !== "LEVEL_0") {
-        setIsComplete(true);
+      if (tier === "tier_1") {
+        // Check if BOTH BVN and selfie are verified
+        const level1 = kycStatus.levels?.level_1;
+        const bvnVerified = level1?.requirements?.bvn_verified === true;
+        const selfieVerified = level1?.requirements?.selfie_verified === true;
+        
+        // Only mark complete if both are done
+        if (bvnVerified && selfieVerified && kycStatus.current_level !== "LEVEL_0") {
+          setIsComplete(true);
+        }
       } else if (tier === "tier_2" && kycStatus.current_level === "LEVEL_3") {
         setIsComplete(true);
       }
@@ -81,7 +89,6 @@ export const KYCWidget: React.FC<KYCWidgetProps> = ({
   };
 
   const handleUserRevalidated = (userData: any) => {
-    console.log('[KYCWidget] User data revalidated:', userData);
     // Optionally trigger a callback to parent component
     if (onSuccess) {
       onSuccess({ ...userData, revalidated: true });

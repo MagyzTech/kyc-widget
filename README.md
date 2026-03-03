@@ -1,4 +1,4 @@
-# @falconite/kyc-widget
+# @falconlite/kyc-widget
 
 Universal KYC verification widget for Next.js, React, and React Native applications.
 
@@ -6,6 +6,8 @@ Universal KYC verification widget for Next.js, React, and React Native applicati
 
 - **Tier 1 KYC**: BVN + Selfie + Document verification
 - **Tier 2 KYC**: Address + Background + Bank Statement verification
+- **Cross-platform Liveness Detection**: Works on desktop, iOS Safari, iOS WebView, and Android
+- **Legacy User Support**: Skip functionality with compliance reminders
 - **React Native Support**: Works in WebView with full camera access
 - **Scoped Styles**: No CSS conflicts with parent application
 - **TypeScript**: Full type safety
@@ -14,11 +16,11 @@ Universal KYC verification widget for Next.js, React, and React Native applicati
 ## Installation
 
 ```bash
-npm install @falconite/kyc-widget
+npm install kyc-widget-falconlite
 # or
-yarn add @falconite/kyc-widget
+yarn add kyc-widget-falconlite
 # or
-pnpm add @falconite/kyc-widget
+pnpm add kyc-widget-falconlite
 ```
 
 ## Peer Dependencies
@@ -29,13 +31,33 @@ Make sure you have these installed:
 npm install react react-dom framer-motion lucide-react zod
 ```
 
+## Development & Testing
+
+See testing documentation:
+- **[QUICK_REFERENCE.md](./QUICK_REFERENCE.md)** - Quick start guide
+- **[TESTING_SUMMARY.md](./TESTING_SUMMARY.md)** - Complete testing overview
+- **[TESTING_GUIDE.md](./TESTING_GUIDE.md)** - Detailed instructions
+- **[STANDALONE_TEST_APP.md](./STANDALONE_TEST_APP.md)** - Standalone test app
+- **[TESTING_ARCHITECTURE.md](./TESTING_ARCHITECTURE.md)** - Visual diagrams
+
+### Quick Development Setup
+
+```bash
+# One command setup
+./setup-dev.sh
+
+# Or manual
+npm run build && npm link
+cd ../app-v2 && npm link kyc-widget-falconlite
+```
+
 ## Usage
 
 ### Tier 1 KYC (BVN + Document)
 
 ```tsx
-import { KYCWidget } from 'kyc-widget-falconite';
-import 'kyc-widget-falconite/styles.css';
+import { KYCWidget } from 'kyc-widget-falconlite';
+import 'kyc-widget-falconlite/styles.css';
 
 function App() {
   return (
@@ -53,8 +75,8 @@ function App() {
 ### Tier 2 KYC (Enhanced Verification)
 
 ```tsx
-import { KYCWidget } from 'kyc-widget-falconite';
-import 'kyc-widget-falconite/styles.css';
+import { KYCWidget } from 'kyc-widget-falconlite';
+import 'kyc-widget-falconlite/styles.css';
 
 function App() {
   const handleUpload = async (file: File): Promise<string> => {
