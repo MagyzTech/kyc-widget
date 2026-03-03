@@ -3,3 +3,16 @@ dist
 *.log
 .DS_Store
 *.tgz
+
+# Development documentation
+IMPLEMENTATION_*.md
+TESTING_*.md
+LIVENESS_*.md
+IOS_*.md
+LEGACY_*.md
+QUICK_*.md
+STANDALONE_*.md
+PRE_DEPLOYMENT_*.md
+DEPLOYMENT_COMPLETE.md
+TODO.md
+setup-dev.sh
