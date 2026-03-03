@@ -14,5 +14,6 @@ QUICK_*.md
 STANDALONE_*.md
 PRE_DEPLOYMENT_*.md
 DEPLOYMENT_COMPLETE.md
+BUGFIX_*.md
 TODO.md
 setup-dev.sh

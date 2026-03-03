@@ -34,7 +34,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/falconiteHQ/kyc-widget"
+    "url": "https://github.com/MagyzTech/kyc-widget"
   },
   "peerDependencies": {
     "framer-motion": "^11.0.0 || ^12.0.0",
